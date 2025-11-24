@@ -1,16 +1,36 @@
 using UnityEngine;
 
-public class EarthMineModel : MonoBehaviour
+public class EarthMineModel : BuildingModel
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public EarthMineModel(BuildingConfig newBuildingConfig) : base(newBuildingConfig)
     {
-        
+      
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void OnTick(float deltaTime, InventoryModel inventory)
     {
+        float productionDuration = GetProductionDuration();
         
+        if (!isProcessing)
+        {
+            SetProcessingState(true);
+        }
+
+        productionTimer += deltaTime;
+
+        progress = Mathf.Clamp01(productionTimer / productionDuration);
+
+        if (!(productionTimer >= productionDuration))
+        {
+            return;
+        }
+        
+        productionTimer -= productionDuration;
+
+        int outputCount = GetOutputCount();
+        ResourceType outputResourceType = buildingConfig.outputResourceType;
+
+        inventory.GainResource(outputResourceType, outputCount);
+        RaiseProduced(outputCount);
     }
 }

@@ -18,7 +18,7 @@ public class InventoryModel : ScriptableObject
                 continue;
             }
 
-            resourceCounts.Add(type, 0);
+            resourceCounts.TryAdd(type, 0);
         }
     }
 
@@ -27,18 +27,17 @@ public class InventoryModel : ScriptableObject
         return resourceCounts.GetValueOrDefault(type, 0);
     }
 
-    public void GainResource(ResourceType type, int amount)
+    public void GainResource(ResourceType type, int count)
     {
         resourceCounts.TryAdd(type, 0);
 
-        resourceCounts[type] += amount;
-        OnInventoryChanged?.Invoke(type, this.resourceCounts[type]);
+        resourceCounts[type] += count;
+        OnInventoryChanged?.Invoke(type, resourceCounts[type]);
     }
 
-
-    public void SpendResource(ResourceType type, int amount)
+    public void SpendResource(ResourceType type, int count)
     {
-        resourceCounts[type] -= amount;
-        OnInventoryChanged?.Invoke(type, this.resourceCounts[type]);
+        resourceCounts[type] -= count;
+        OnInventoryChanged?.Invoke(type, resourceCounts[type]);
     }
 }

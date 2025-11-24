@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 [CreateAssetMenu(fileName = "BuildingConfig", menuName = "ScriptableObjects/BuildingConfig")]
 public class BuildingConfig : ScriptableObject
 {
     public string buildingName;
+    public ResourceType requiredInputResourceType;
     public ResourceType outputResourceType;
     public List<BuildingLevelData> levels = new();
 
@@ -14,29 +16,24 @@ public class BuildingConfig : ScriptableObject
         return levels[level];
     }
 
-    public float GetCycleTime(int level)
+    public float GetProductionDuration(int level)
     {
-        return levels[level].productionTime;
+        return levels[level].productionDuration;
     }
 
-    public int GetOutputAmount(int level)
+    public int GetOutputCount(int level)
     {
-        return levels[level].outputAmount;
+        return levels[level].outputCount;
     }
 
-    public int GetInputAmount(int level)
+    public int GetRequiredInputCount(int level)
     {
-        return levels[level].inputAmount;
+        return levels[level].requiredInputCount;
     }
 
-    public int GetUpgradeCostAmount(int level)
+    public UpgradeRequirement GetUpgradeRequirement(int level)
     {
-        return levels[level].upgradeCostAmount;
-    }
-
-    public ResourceType GetUpgradeCostResourceType(int level)
-    {
-        return levels[level].upgradeResourceType;
+        return levels[level].upgradeRequirement;
     }
 }
 
@@ -44,9 +41,15 @@ public class BuildingConfig : ScriptableObject
 [Serializable]
 public class BuildingLevelData
 {
-    public float productionTime;
-    public int inputAmount;
-    public int outputAmount;
-    public ResourceType upgradeResourceType;
-    public int upgradeCostAmount;
+    public int requiredInputCount;
+    public int outputCount;
+    public float productionDuration;
+    public UpgradeRequirement upgradeRequirement;
+}
+
+[Serializable]
+public class UpgradeRequirement
+{
+    public ResourceType resourceType;
+    public int count;
 }
