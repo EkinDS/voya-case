@@ -40,11 +40,6 @@ public abstract class BuildingModel
 
     public void Upgrade(InventoryModel inventory)
     {
-        if (inventory.GetResourceCount(GetUpgradeRequirement().resourceType) < GetUpgradeRequirement().count)
-        {
-            return;
-        }
-
         level++;
 
         OnLevelChanged?.Invoke(level);
