@@ -115,7 +115,7 @@ public class BuildingPresenter : IDisposable
         var upgradeRequirement = buildingModel.GetUpgradeRequirement();
 
         buildingView.ArrangeInformation(buildingModel.level, buildingModel.GetOutputCount(),
-            buildingModel.GetProductionDuration(), upgradeRequirement.resourceType, upgradeRequirement.count);
+            buildingModel.GetProductionDuration(), upgradeRequirement.resourceType, upgradeRequirement.count, buildingModel.GetRequiredInputCount());
 
         buildingView.ArrangeUpgradeButton(
             inventoryModel.GetResourceCount(buildingModel.GetUpgradeRequirement().resourceType) >=

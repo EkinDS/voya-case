@@ -10,8 +10,8 @@ public class BuildingView : MonoBehaviour, IBuildingView
     [SerializeField] protected TextMeshProUGUI levelText;
     [SerializeField] protected TextMeshProUGUI productionText;
     [SerializeField] protected TextMeshProUGUI upgradeCostText;
-    [SerializeField] protected TextMeshProUGUI maxText;
-    [SerializeField] protected TextMeshProUGUI productionRequirementText;
+    [SerializeField] protected TextMeshProUGUI requiredInputCountText;
+    [SerializeField] protected Image productionRequirementBackgroundImage;
     [SerializeField] protected Image progressBarFillerImage;
     [SerializeField] protected Button upgradeButton;
     [SerializeField] protected Button startProductionButton;
@@ -52,11 +52,14 @@ public class BuildingView : MonoBehaviour, IBuildingView
     }
 
     public virtual void ArrangeInformation(int level, int outputCount, float durationSeconds, ResourceType resourceType,
-        int count)
+        int count, int requiredInputCount)
     {
         levelText.text = level.ToString();
         productionText.text = $"{outputCount} / {durationSeconds:0.0}s";
         upgradeCostText.text = $"{count} {resourceType}";
+        requiredInputCountText.text = requiredInputCount.ToString();
+        
+        productionRequirementBackgroundImage.gameObject.SetActive(requiredInputCount > 0);
     }
 
     public void ArrangeAnimations(bool isProcessing)
