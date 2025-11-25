@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,10 +15,11 @@ public class BuildingView : MonoBehaviour, IBuildingView
     [SerializeField] protected Image progressBarFillerImage;
     [SerializeField] protected Button upgradeButton;
     [SerializeField] protected Button startProductionButton;
+    [SerializeField] protected List<Animator> animators;
 
     public event Action OnUpgradeButtonClicked;
     public event Action OnStartProductionButtonClicked;
-    
+
     public void HandleUpgradeButtonClicked()
     {
         OnUpgradeButtonClicked?.Invoke();
@@ -27,7 +29,7 @@ public class BuildingView : MonoBehaviour, IBuildingView
     {
         OnStartProductionButtonClicked?.Invoke();
     }
-    
+
     public virtual void SetTitle(string title)
     {
         titleText.text = title;
@@ -49,10 +51,19 @@ public class BuildingView : MonoBehaviour, IBuildingView
         startProductionButton.gameObject.SetActive(!isProcessing);
     }
 
-    public virtual void ArrangeInformation(int level, int outputCount, float durationSeconds, ResourceType resourceType, int count)
+    public virtual void ArrangeInformation(int level, int outputCount, float durationSeconds, ResourceType resourceType,
+        int count)
     {
         levelText.text = level.ToString();
         productionText.text = $"{outputCount} / {durationSeconds:0.0}s";
         upgradeCostText.text = $"{count} {resourceType}";
+    }
+
+    public void ArrangeAnimations(bool isProcessing)
+    {
+        foreach (var animator in animators)
+        {
+            animator.enabled = isProcessing;
+        }
     }
 }

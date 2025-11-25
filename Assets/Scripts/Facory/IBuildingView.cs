@@ -10,4 +10,6 @@ public interface IBuildingView
     public void ArrangeUpgradeButton(bool thereAreEnoughResources);
     public void ArrangeStartProductionButton(bool thereAreEnoughResources, bool isProcessing);
     public void ArrangeInformation(int level, int outputCount, float durationSeconds, ResourceType resourceType, int count);
+    public void ArrangeAnimations(bool isProcessing);
+
 }

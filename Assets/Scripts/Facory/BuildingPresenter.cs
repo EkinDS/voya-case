@@ -101,6 +101,7 @@ public class BuildingPresenter : IDisposable
     private void OnProcessingStateChanged(bool isProcessing)
     {
         RefreshView();
+        
     }
 
 
@@ -123,6 +124,9 @@ public class BuildingPresenter : IDisposable
         buildingView.ArrangeStartProductionButton(
             inventoryModel.GetResourceCount(buildingModel.GetRequiredInputResourceType()) >=
             buildingModel.GetRequiredInputCount(), buildingModel.GetProcessingState());
+        
+        buildingView.ArrangeAnimations(buildingModel.GetProcessingState());
+
     }
 
     public virtual void Dispose()
