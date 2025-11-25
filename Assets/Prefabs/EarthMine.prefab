@@ -282,6 +282,22 @@ PrefabInstance:
       propertyPath: 'animators.Array.data[0]'
       value: 
       objectReference: {fileID: 1362340344356450471}
+    - target: {fileID: 6545651541472684215, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6545651541472684215, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7905076692463764825, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8e47d7dae56c44c40ba2774935cc20a0, type: 3}
+    - target: {fileID: 7905076692463764825, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8727363413379507324, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
       propertyPath: m_Name
       value: EarthMine

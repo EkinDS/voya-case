@@ -32,7 +32,7 @@ public class BuildingView : MonoBehaviour, IBuildingView
 
     public virtual void SetTitle(string title)
     {
-        titleText.text = title;
+        //titleText.text = title;
     }
 
     public virtual void SetProgress(float normalizedProgress)
@@ -56,7 +56,7 @@ public class BuildingView : MonoBehaviour, IBuildingView
     {
         levelText.text = level.ToString();
         productionText.text = $"{outputCount} / {durationSeconds:0.0}s";
-        upgradeCostText.text = $"{count} {resourceType}";
+        //upgradeCostText.text = $"{count} {resourceType}";
         requiredInputCountText.text = requiredInputCount.ToString();
         
         productionRequirementBackgroundImage.gameObject.SetActive(requiredInputCount > 0);

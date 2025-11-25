@@ -169,6 +169,14 @@ PrefabInstance:
       propertyPath: 'animators.Array.data[0]'
       value: 
       objectReference: {fileID: 6987233038422985876}
+    - target: {fileID: 7905076692463764825, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 98a12dcaa1b2f604fa6f7b026eae844c, type: 3}
+    - target: {fileID: 7905076692463764825, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8727363413379507324, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
       propertyPath: m_Name
       value: MudFactory
