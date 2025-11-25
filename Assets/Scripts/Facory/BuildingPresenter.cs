@@ -1,24 +1,26 @@
 using System;
 using UnityEngine;
 
-public abstract class BuildingPresenter : IDisposable
+public class BuildingPresenter : IDisposable
 {
     private readonly BuildingModel buildingModel;
     private readonly InventoryModel inventoryModel;
     private readonly IBuildingView buildingView;
 
-    protected BuildingPresenter(BuildingModel newBuildingModel, InventoryModel newInventoryModel,
-        IBuildingView newInventoryView)
+    public BuildingPresenter(BuildingModel newBuildingModel, InventoryModel newInventoryModel,
+        IBuildingView newBuildingView)
     {
         buildingModel = newBuildingModel;
         inventoryModel = newInventoryModel;
-        buildingView = newInventoryView;
+        buildingView = newBuildingView;
 
         buildingView.OnUpgradeButtonClicked += OnUpgradeButtonClicked;
         buildingView.OnStartProductionButtonClicked += OnStartProductionButtonClicked;
         buildingModel.OnLevelChanged += OnLevelChanged;
         buildingModel.OnProduced += OnProduced;
         buildingModel.OnProcessingStateChanged += OnProcessingStateChanged;
+
+        inventoryModel.OnInventoryChanged += OnInventoryChanged;
 
         InitializeView();
     }
@@ -32,9 +34,9 @@ public abstract class BuildingPresenter : IDisposable
     private void InitializeView()
     {
         buildingView.SetTitle(buildingModel.buildingConfig.buildingName);
-        RefreshStaticInfo();
         buildingView.SetProgress(buildingModel.progress);
-        buildingView.SetProcessingState(false);
+
+        RefreshView();
     }
 
     private void OnUpgradeButtonClicked()
@@ -50,7 +52,6 @@ public abstract class BuildingPresenter : IDisposable
 
         if (currentResourceAmount < upgradeRequirement.count)
         {
-            buildingView.ShowNotEnoughResourcesFeedback();
             return;
         }
 
@@ -58,12 +59,17 @@ public abstract class BuildingPresenter : IDisposable
 
         buildingModel.Upgrade(inventoryModel);
 
-        RefreshStaticInfo();
+        RefreshView();
     }
 
     private void OnStartProductionButtonClicked()
     {
-        ResourceType requiredInputResourceType = buildingModel.buildingConfig.requiredInputResourceType;
+        if (buildingModel.GetProcessingState())
+        {
+            return;
+        }
+
+        ResourceType requiredInputResourceType = buildingModel.GetRequiredInputResourceType();
         int requiredInputCount = buildingModel.GetRequiredInputCount();
 
         if (requiredInputResourceType == ResourceType.None || requiredInputCount <= 0)
@@ -74,7 +80,6 @@ public abstract class BuildingPresenter : IDisposable
 
         if (inventoryModel.GetResourceCount(requiredInputResourceType) < requiredInputCount)
         {
-            buildingView.ShowNotEnoughResourcesFeedback();
             return;
         }
 
@@ -85,27 +90,39 @@ public abstract class BuildingPresenter : IDisposable
 
     private void OnLevelChanged(int newLevel)
     {
-        RefreshStaticInfo();
+        RefreshView();
     }
 
     private void OnProduced(int producedCount)
     {
-        buildingView.PlayProducedFeedback();
+        RefreshView();
     }
 
     private void OnProcessingStateChanged(bool isProcessing)
     {
-        buildingView.SetProcessingState(isProcessing);
+        RefreshView();
     }
 
-    private void RefreshStaticInfo()
-    {
-        buildingView.SetLevel(buildingModel.level);
-        buildingView.SetProductionInfo(buildingModel.GetOutputCount(), buildingModel.GetProductionDuration());
 
+    private void OnInventoryChanged(ResourceType type, int newAmount)
+    {
+        RefreshView();
+    }
+
+    private void RefreshView()
+    {
         var upgradeRequirement = buildingModel.GetUpgradeRequirement();
 
-        buildingView.SetUpgradeCost(upgradeRequirement.resourceType, upgradeRequirement.count);
+        buildingView.ArrangeInformation(buildingModel.level, buildingModel.GetOutputCount(),
+            buildingModel.GetProductionDuration(), upgradeRequirement.resourceType, upgradeRequirement.count);
+
+        buildingView.ArrangeUpgradeButton(
+            inventoryModel.GetResourceCount(buildingModel.GetUpgradeRequirement().resourceType) >=
+            buildingModel.GetUpgradeRequirement().count);
+
+        buildingView.ArrangeStartProductionButton(
+            inventoryModel.GetResourceCount(buildingModel.GetRequiredInputResourceType()) >=
+            buildingModel.GetRequiredInputCount(), buildingModel.GetProcessingState());
     }
 
     public virtual void Dispose()
@@ -115,5 +132,6 @@ public abstract class BuildingPresenter : IDisposable
         buildingModel.OnLevelChanged -= OnLevelChanged;
         buildingModel.OnProduced -= OnProduced;
         buildingModel.OnProcessingStateChanged -= OnProcessingStateChanged;
+        inventoryModel.OnInventoryChanged -= OnInventoryChanged;
     }
 }

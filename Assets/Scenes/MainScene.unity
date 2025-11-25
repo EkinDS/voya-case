@@ -582,9 +582,9 @@ MonoBehaviour:
   earthMineConfig: {fileID: 11400000, guid: d7f253ee2786ba441a979b43d846fb59, type: 2}
   mudFactoryConfig: {fileID: 11400000, guid: eb71b94ab91ae0c4fb61fbab0c2a8a05, type: 2}
   clayFactoryConfig: {fileID: 11400000, guid: 82f26a67544345040a0c60260649187a, type: 2}
-  earthMineViewPrefab: {fileID: 7559875009532210824, guid: b61624d706b159049891397bb6426431, type: 3}
-  mudFactoryViewPrefab: {fileID: 3470410497984145915, guid: 516b904d0bc1aca4ab1d2a1eb9ae6902, type: 3}
-  clayFactoryViewPrefab: {fileID: 2847274186936158233, guid: 298779be80ff4b74ea5a78b7e6a4ff46, type: 3}
+  earthMineViewPrefab: {fileID: 3721319263217547557, guid: b023a77bd3c42834a8221846d12c0cf5, type: 3}
+  mudFactoryViewPrefab: {fileID: 4585864877404964244, guid: 8f6710f05daa2e94c98f465789697ece, type: 3}
+  clayFactoryViewPrefab: {fileID: 8005167688574008433, guid: a01dc2daafd7f5146b9844ba90bad5fc, type: 3}
   viewParent: {fileID: 1176955581}
 --- !u!4 &448572849
 Transform:
@@ -1171,13 +1171,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClayFactory
       objectReference: {fileID: 0}
-    - target: {fileID: 7878350319992209165, guid: 2ad186be767231f43b6d33dc8e4cfe67, type: 3}
-      propertyPath: m_LocalPosition.x
+    - target: {fileID: -2253911629886400664, guid: 2ad186be767231f43b6d33dc8e4cfe67, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 2ad186be767231f43b6d33dc8e4cfe67, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 2ad186be767231f43b6d33dc8e4cfe67, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.92
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 2ad186be767231f43b6d33dc8e4cfe67, type: 3}
       propertyPath: m_LocalPosition.z

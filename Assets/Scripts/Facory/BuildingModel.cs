@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public abstract class BuildingModel
+public class BuildingModel
 {
     public event Action<int> OnLevelChanged;
     public event Action<int> OnProduced;
@@ -14,7 +14,7 @@ public abstract class BuildingModel
     private bool isProcessing;
 
 
-    protected BuildingModel(BuildingConfig newBuildingConfig)
+    public BuildingModel(BuildingConfig newBuildingConfig)
     {
         buildingConfig = newBuildingConfig;
     }
@@ -85,6 +85,11 @@ public abstract class BuildingModel
     public bool GetProcessingState()
     {
         return isProcessing;
+    }
+
+    public ResourceType GetRequiredInputResourceType()
+    {
+        return buildingConfig.requiredInputResourceType;
     }
 
     private void RaiseProduced(int count)

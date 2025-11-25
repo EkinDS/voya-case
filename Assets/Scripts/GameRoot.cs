@@ -6,15 +6,15 @@ public class GameRoot : MonoBehaviour
     [SerializeField] private BuildingConfig earthMineConfig;
     [SerializeField] private BuildingConfig mudFactoryConfig;
     [SerializeField] private BuildingConfig clayFactoryConfig;
-    [SerializeField] private EarthMineView earthMineViewPrefab;
-    [SerializeField] private FactoryView mudFactoryViewPrefab;
-    [SerializeField] private FactoryView clayFactoryViewPrefab;
+    [SerializeField] private BuildingView earthMineViewPrefab;
+    [SerializeField] private BuildingView mudFactoryViewPrefab;
+    [SerializeField] private BuildingView clayFactoryViewPrefab;
     [SerializeField] private Transform viewParent;
 
     private InventoryPresenter inventoryPresenter;
-    private EarthMinePresenter earthMinePresenter;
-    private FactoryPresenter mudFactoryPresenter;
-    private FactoryPresenter clayFactoryPresenter;
+    private BuildingPresenter earthMinePresenter;
+    private BuildingPresenter mudFactoryPresenter;
+    private BuildingPresenter clayFactoryPresenter;
 
     private void Start()
     {
@@ -23,14 +23,14 @@ public class GameRoot : MonoBehaviour
         var clayFactoryView = Instantiate(clayFactoryViewPrefab, new Vector3(0F, 2F, 0F), Quaternion.identity, viewParent);
 
         var inventoryModel = new InventoryModel();
-        var earthMineModel = new EarthMineModel(earthMineConfig);
-        var mudFactoryModel = new FactoryModel(mudFactoryConfig);
-        var clayFactoryModel = new FactoryModel(clayFactoryConfig);
+        var earthMineModel = new BuildingModel(earthMineConfig);
+        var mudFactoryModel = new BuildingModel(mudFactoryConfig);
+        var clayFactoryModel = new BuildingModel(clayFactoryConfig);
 
         inventoryPresenter = new InventoryPresenter(inventoryModel, inventoryView);
-        earthMinePresenter = new EarthMinePresenter(earthMineModel, inventoryModel, earthMineView);
-        mudFactoryPresenter = new FactoryPresenter(mudFactoryModel, inventoryModel, mudFactoryView);
-        clayFactoryPresenter = new FactoryPresenter(clayFactoryModel, inventoryModel, clayFactoryView);
+        earthMinePresenter = new BuildingPresenter(earthMineModel, inventoryModel, earthMineView);
+        mudFactoryPresenter = new BuildingPresenter(mudFactoryModel, inventoryModel, mudFactoryView);
+        clayFactoryPresenter = new BuildingPresenter(clayFactoryModel, inventoryModel, clayFactoryView);
     }
 
     private void Update()

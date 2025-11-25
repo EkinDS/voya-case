@@ -17,38 +17,20 @@ public class BuildingView : MonoBehaviour, IBuildingView
 
     public event Action OnUpgradeButtonClicked;
     public event Action OnStartProductionButtonClicked;
-
-    protected Color defaultUpgradeTextColor;
-
-    protected virtual void Awake()
-    {
-        defaultUpgradeTextColor = upgradeCostText.color;
-    }
-
+    
     public void HandleUpgradeButtonClicked()
     {
         OnUpgradeButtonClicked?.Invoke();
     }
-    
+
     public void HandleStartProductionButtonClicked()
     {
         OnStartProductionButtonClicked?.Invoke();
     }
-
-
+    
     public virtual void SetTitle(string title)
     {
         titleText.text = title;
-    }
-
-    public virtual void SetLevel(int level)
-    {
-        levelText.text = "Level " +  level;
-    }
-
-    public virtual void SetProductionInfo(int outputCount, float durationSeconds)
-    {
-        productionText.text = $"{outputCount} / {durationSeconds:0.0}s";
     }
 
     public virtual void SetProgress(float normalizedProgress)
@@ -56,26 +38,21 @@ public class BuildingView : MonoBehaviour, IBuildingView
         progressBarFillerImage.fillAmount = Mathf.Clamp01(normalizedProgress);
     }
 
-    public virtual void SetUpgradeCost(ResourceType resourceType, int count)
+    public virtual void ArrangeUpgradeButton(bool thereAreEnoughResources)
     {
-        upgradeButton.interactable = true;
+        upgradeButton.gameObject.SetActive(thereAreEnoughResources);
+    }
 
+    public virtual void ArrangeStartProductionButton(bool thereAreEnoughResources, bool isProcessing)
+    {
+        startProductionButton.interactable = thereAreEnoughResources;
+        startProductionButton.gameObject.SetActive(!isProcessing);
+    }
+
+    public virtual void ArrangeInformation(int level, int outputCount, float durationSeconds, ResourceType resourceType, int count)
+    {
+        levelText.text = level.ToString();
+        productionText.text = $"{outputCount} / {durationSeconds:0.0}s";
         upgradeCostText.text = $"{count} {resourceType}";
-        upgradeCostText.color = defaultUpgradeTextColor;
-    }
-
-    public virtual void ShowNotEnoughResourcesFeedback()
-    {
-        upgradeCostText.color = Color.red;
-    }
-
-    public virtual void PlayProducedFeedback()
-    {
-        
-    }
-
-    public virtual void SetProcessingState(bool isProcessing)
-    {
-        
     }
 }

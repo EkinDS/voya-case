@@ -469,7 +469,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4064467257639623215}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3409157804001514618}
+        m_TargetAssemblyTypeName: BuildingView, Assembly-CSharp
+        m_MethodName: HandleUpgradeButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2031641613453482484
 GameObject:
   m_ObjectHideFlags: 0
@@ -1763,7 +1775,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1902561253227981318}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3409157804001514618}
+        m_TargetAssemblyTypeName: BuildingView, Assembly-CSharp
+        m_MethodName: HandleStartProductionButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8727363413379507324
 GameObject:
   m_ObjectHideFlags: 0
@@ -1774,6 +1798,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2752013866080846668}
   - component: {fileID: 5888588084365214346}
+  - component: {fileID: 3409157804001514618}
   m_Layer: 0
   m_Name: Building
   m_TagString: Untagged
@@ -1855,3 +1880,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3409157804001514618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727363413379507324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88d767e93b547af4c92ed21be48df2cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingView
+  titleText: {fileID: 8698161828151528379}
+  levelText: {fileID: 4212687810067419414}
+  productionText: {fileID: 5613895924831892699}
+  upgradeCostText: {fileID: 8301948600447297220}
+  maxText: {fileID: 2832675362255290756}
+  productionRequirementText: {fileID: 789468107983632153}
+  progressBarFillerImage: {fileID: 1114214603948717177}
+  upgradeButton: {fileID: 7431338596319607085}
+  startProductionButton: {fileID: 9062837279511568058}
