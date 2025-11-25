@@ -7,22 +7,23 @@ using UnityEngine.UI;
 
 public class BuildingView : MonoBehaviour, IBuildingView
 {
-    [SerializeField] protected TextMeshProUGUI buildingNameText;
-    [SerializeField] protected TextMeshProUGUI levelText;
-    [SerializeField] protected TextMeshProUGUI upgradeText;
-    [SerializeField] protected TextMeshProUGUI requiredInputCountText;
-    [SerializeField] protected TextMeshProUGUI inputValueText;
-    [SerializeField] protected TextMeshProUGUI outputValueText;
-    [SerializeField] protected TextMeshProUGUI durationValueText;
-    [SerializeField] protected TextMeshProUGUI productionSpeedValueText;
-    [SerializeField] protected Image productionRequirementBackgroundImage;
-    [SerializeField] protected Image progressBarFillerImage;
-    [SerializeField] protected Image upgradeArrowImage;
-    [SerializeField] protected Button upgradeButton;
-    [SerializeField] protected Button startProductionButton;
-    [SerializeField] protected CanvasGroup popUpCanvasGroup;
+    [SerializeField] private Transform modelTransform;
+    [SerializeField] private TextMeshProUGUI buildingNameText;
+    [SerializeField] private TextMeshProUGUI levelText;
+    [SerializeField] private TextMeshProUGUI upgradeText;
+    [SerializeField] private TextMeshProUGUI requiredInputCountText;
+    [SerializeField] private TextMeshProUGUI inputValueText;
+    [SerializeField] private TextMeshProUGUI outputValueText;
+    [SerializeField] private TextMeshProUGUI durationValueText;
+    [SerializeField] private TextMeshProUGUI productionSpeedValueText;
+    [SerializeField] private Image productionRequirementBackgroundImage;
+    [SerializeField] private Image progressBarFillerImage;
+    [SerializeField] private Image upgradeArrowImage;
+    [SerializeField] private Button upgradeButton;
+    [SerializeField] private Button startProductionButton;
+    [SerializeField] private CanvasGroup popUpCanvasGroup;
     [SerializeField] private GameObject resourceToClone;
-    [SerializeField] protected List<Animator> animators;
+    [SerializeField] private List<Animator> animators;
 
     private Coroutine popUpCoroutine;
 
@@ -100,6 +101,11 @@ public class BuildingView : MonoBehaviour, IBuildingView
         StartCoroutine(SpawnAndMoveResource());
     }
 
+    public void BounceScale()
+    {
+        StartCoroutine(AnimateBounceScale());
+    }
+    
     private void ShowPopUp()
     {
         if (popUpCoroutine != null)
@@ -119,7 +125,7 @@ public class BuildingView : MonoBehaviour, IBuildingView
 
         popUpCanvasGroup.gameObject.SetActive(false);
     }
-
+    
     private IEnumerator AnimatePopUpReveal()
     {
         popUpCanvasGroup.gameObject.SetActive(true);
@@ -178,5 +184,29 @@ public class BuildingView : MonoBehaviour, IBuildingView
 
         newResource.transform.position = endPosition;
         Destroy(newResource);
+    }
+    
+    private IEnumerator AnimateBounceScale()
+    {
+        float duration = 0.2f;
+        float timer = 0f;
+
+        Vector3 scaleStart = Vector3.one;
+        Vector3 scalePeak = new Vector3(1.1f, 1.1f, 1.1f);
+        Vector3 scaleEnd = Vector3.one;
+
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            float t = Mathf.Clamp01(timer / duration);
+
+            Vector3 targetScale = t < 0.5f ? Vector3.Lerp(scaleStart, scalePeak, t / 0.5f) : Vector3.Lerp(scalePeak, scaleEnd, (t - 0.5f) / 0.5f);
+
+            modelTransform.localScale = targetScale;
+
+            yield return null;
+        }
+
+        modelTransform.localScale = scaleEnd;
     }
 }

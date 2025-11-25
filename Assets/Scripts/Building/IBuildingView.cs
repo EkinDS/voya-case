@@ -12,4 +12,5 @@ public interface IBuildingView
     public void ArrangeInformation(int level, int outputCount, float durationSeconds, int upgradeRequirementCount, int requiredInputCount);
     public void ArrangeAnimations(bool isProcessing);
     public void SpawnResource();
+    public void BounceScale();
 }

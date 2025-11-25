@@ -100,6 +100,7 @@ public class BuildingPresenter : IDisposable
         inventoryModel.GainResource( buildingModel.GetOutputResourceType(), producedCount);
 
         buildingView.SpawnResource();
+        buildingView.BounceScale();
         RefreshView();
     }
 
