@@ -27,7 +27,7 @@ public class BuildingPresenter : IDisposable
 
     public void Tick(float deltaTime)
     {
-        buildingModel.Tick(deltaTime, inventoryModel);
+        buildingModel.Tick(deltaTime);
         buildingView.SetProgress(buildingModel.progress);
     }
 
@@ -95,13 +95,14 @@ public class BuildingPresenter : IDisposable
 
     private void OnProduced(int producedCount)
     {
+        inventoryModel.GainResource( buildingModel.buildingConfig.outputResourceType, producedCount);
+
         RefreshView();
     }
 
     private void OnProcessingStateChanged(bool isProcessing)
     {
         RefreshView();
-        
     }
 
 
@@ -115,7 +116,8 @@ public class BuildingPresenter : IDisposable
         var upgradeRequirement = buildingModel.GetUpgradeRequirement();
 
         buildingView.ArrangeInformation(buildingModel.level, buildingModel.GetOutputCount(),
-            buildingModel.GetProductionDuration(), upgradeRequirement.resourceType, upgradeRequirement.count, buildingModel.GetRequiredInputCount());
+            buildingModel.GetProductionDuration(), upgradeRequirement.resourceType, upgradeRequirement.count,
+            buildingModel.GetRequiredInputCount());
 
         buildingView.ArrangeUpgradeButton(
             inventoryModel.GetResourceCount(buildingModel.GetUpgradeRequirement().resourceType) >=
@@ -124,9 +126,8 @@ public class BuildingPresenter : IDisposable
         buildingView.ArrangeStartProductionButton(
             inventoryModel.GetResourceCount(buildingModel.GetRequiredInputResourceType()) >=
             buildingModel.GetRequiredInputCount(), buildingModel.GetProcessingState());
-        
-        buildingView.ArrangeAnimations(buildingModel.GetProcessingState());
 
+        buildingView.ArrangeAnimations(buildingModel.GetProcessingState());
     }
 
     public virtual void Dispose()

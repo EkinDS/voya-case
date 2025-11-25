@@ -46,29 +46,39 @@ public class BuildingModel
         OnLevelChanged?.Invoke(level);
     }
 
-    public void Tick(float deltaTime, InventoryModel inventory)
+    public void Tick(float deltaTime)
     {
-        float productionDuration = GetProductionDuration();
-
-        if (isProcessing)
+        if (!isProcessing)
         {
-            productionTimer += deltaTime;
-            progress = Mathf.Clamp01(productionTimer / productionDuration);
-
-            if (productionTimer >= productionDuration)
-            {
-                productionTimer -= productionDuration;
-
-                int outputCount = GetOutputCount();
-                ResourceType outputResourceType = buildingConfig.outputResourceType;
-
-                inventory.GainResource(outputResourceType, outputCount);
-                RaiseProduced(outputCount);
-             
-                SetProcessingState(false);
-                progress = 0F;
-            }
+            progress = 0f;
+            return;
         }
+
+        float productionDuration = GetProductionDuration();
+        if (productionDuration <= 0f)
+        {
+            progress = 0f;
+            return;
+        }
+
+        productionTimer += deltaTime;
+        progress = Mathf.Clamp01(productionTimer / productionDuration);
+
+        if (productionTimer < productionDuration)
+        {
+            return;
+        }
+
+        productionTimer -= productionDuration;
+
+        int outputCount = GetOutputCount();
+        if (outputCount > 0)
+        {
+            RaiseProduced(outputCount);
+        }
+
+        SetProcessingState(false);
+        progress = 0f;
     }
 
     public void SetProcessingState(bool newState)
