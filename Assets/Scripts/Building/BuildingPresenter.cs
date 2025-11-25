@@ -28,13 +28,13 @@ public class BuildingPresenter : IDisposable
     public void Tick(float deltaTime)
     {
         buildingModel.Tick(deltaTime);
-        buildingView.SetProgress(buildingModel.progress);
+        buildingView.SetProgress(buildingModel.GetTotalProgress());
     }
 
     private void InitializeView()
     {
-        buildingView.SetTitle(buildingModel.buildingConfig.buildingName);
-        buildingView.SetProgress(buildingModel.progress);
+        buildingView.SetTitle(buildingModel.GetBuildingName());
+        buildingView.SetProgress(buildingModel.GetTotalProgress());
 
         RefreshView();
     }
@@ -97,7 +97,7 @@ public class BuildingPresenter : IDisposable
 
     private void OnProduced(int producedCount)
     {
-        inventoryModel.GainResource( buildingModel.buildingConfig.outputResourceType, producedCount);
+        inventoryModel.GainResource( buildingModel.GetOutputResourceType(), producedCount);
 
         RefreshView();
     }
@@ -117,14 +117,14 @@ public class BuildingPresenter : IDisposable
     {
         var upgradeRequirement = buildingModel.GetUpgradeRequirement();
 
-        buildingView.ArrangeInformation(buildingModel.level, buildingModel.GetOutputCount(),
+        buildingView.ArrangeInformation(buildingModel.GetLevel(), buildingModel.GetOutputCount(),
             buildingModel.GetProductionDuration(), upgradeRequirement.resourceType, upgradeRequirement.count,
             buildingModel.GetRequiredInputCount());
 
         buildingView.ArrangeUpgradeButton(
             inventoryModel.GetResourceCount(buildingModel.GetUpgradeRequirement().resourceType) >=
-            buildingModel.GetUpgradeRequirement().count);
-
+            buildingModel.GetUpgradeRequirement().count, buildingModel.GetLevel() >= buildingModel.GetLevelCount() - 1, buildingModel.GetProcessingState());
+        
         buildingView.ArrangeStartProductionButton(
             inventoryModel.GetResourceCount(buildingModel.GetRequiredInputResourceType()) >=
             buildingModel.GetRequiredInputCount(), buildingModel.GetProcessingState());

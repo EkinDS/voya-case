@@ -177,10 +177,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8146779287704640325, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 8125541052251532600, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 6139269510209921954, guid: 40b3c82f58e6cda4b98ed3837a6e45c7, type: 3}
     - target: {fileID: 8727363413379507324, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
       propertyPath: m_Name
       value: ClayFactory

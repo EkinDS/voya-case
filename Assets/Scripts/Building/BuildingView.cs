@@ -40,9 +40,9 @@ public class BuildingView : MonoBehaviour, IBuildingView
         progressBarFillerImage.fillAmount = Mathf.Clamp01(normalizedProgress);
     }
 
-    public virtual void ArrangeUpgradeButton(bool thereAreEnoughResources)
+    public virtual void ArrangeUpgradeButton(bool thereAreEnoughResources, bool isMaxed, bool isProcessing)
     {
-        upgradeButton.gameObject.SetActive(thereAreEnoughResources);
+        upgradeButton.gameObject.SetActive(thereAreEnoughResources && !isMaxed && !isProcessing);
     }
 
     public virtual void ArrangeStartProductionButton(bool thereAreEnoughResources, bool isProcessing)

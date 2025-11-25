@@ -7,13 +7,14 @@ public class BuildingModel
     public event Action<int> OnProduced;
     public event Action<bool> OnProcessingStateChanged;
 
-    public BuildingConfig buildingConfig;
-    public int level;
-    public float progress;
+    private BuildingConfig buildingConfig;
+    private int level;
+    private float progress;
     private float productionTimer;
     private bool isProcessing;
     private int remainingCycleCount;
-
+    private int totalCycleCount;
+    private float totalProgress;
 
     public BuildingModel(BuildingConfig newBuildingConfig)
     {
@@ -42,71 +43,81 @@ public class BuildingModel
 
     public void AddNewCycle()
     {
-        Debug.Log("Adding new cycle");
         remainingCycleCount += buildingConfig.GetCycleCount(level);
+        totalCycleCount += buildingConfig.GetCycleCount(level);
     }
 
-    public int GetCycleCount()
-    {
-        return remainingCycleCount;
-    }
-    
     public void Upgrade()
     {
         level++;
-
         OnLevelChanged?.Invoke(level);
     }
 
     public void Tick(float deltaTime)
     {
-        if (!isProcessing)
+        if (!isProcessing || totalCycleCount <= 0)
         {
             progress = 0f;
+            totalProgress = 0f;
             return;
         }
 
-        float productionDuration = GetProductionDuration();
-        if (productionDuration <= 0f)
-        {
-            progress = 0f;
-            return;
-        }
+        float productionDurationPerOutput = buildingConfig.GetProductionDurationPerOutput(level);
 
         productionTimer += deltaTime;
-        progress = Mathf.Clamp01(productionTimer / productionDuration);
+        progress = Mathf.Clamp01(productionTimer / productionDurationPerOutput);
+        totalProgress = Mathf.Clamp01((totalCycleCount - remainingCycleCount + progress) / totalCycleCount);
 
-        if (productionTimer < productionDuration)
+        if (productionTimer < productionDurationPerOutput)
         {
             return;
         }
 
-        productionTimer -= productionDuration;
-
-        int outputCount = GetOutputCount();
-        if (outputCount > 0)
-        {
-            RaiseProduced(outputCount);
-        }
+        productionTimer -= productionDurationPerOutput;
+        progress = 0f;
 
         if (remainingCycleCount > 0)
         {
             remainingCycleCount--;
-            Debug.Log("removing a cycle " + remainingCycleCount + " left");
-
-            progress = 0f;
+            RaiseProduced(1);
         }
-        else
+
+        if (remainingCycleCount <= 0)
         {
-            Debug.Log("removing a cycle " + remainingCycleCount + " left");
-
-            Debug.Log("all cycles done");
             SetProcessingState(false);
+            remainingCycleCount = 0;
+            totalCycleCount = 0;
+            totalProgress = 0f;
             progress = 0f;
+            productionTimer = 0f;
         }
-      
     }
 
+    public float GetTotalProgress()
+    {
+        return totalProgress;
+    }
+
+    public string GetBuildingName()
+    {
+        return buildingConfig.buildingName;
+    }
+
+    public ResourceType GetOutputResourceType()
+    {
+        return buildingConfig.outputResourceType;
+    }
+
+    public int GetLevel()
+    {
+        return level;
+    }
+
+    public int GetLevelCount()
+    {
+        return buildingConfig.levels.Count;
+    }
+    
     public void SetProcessingState(bool newState)
     {
         if (isProcessing == newState)
@@ -114,11 +125,6 @@ public class BuildingModel
             return;
         }
 
-        if (newState)
-        {
-            remainingCycleCount--;
-        }
-        
         isProcessing = newState;
         OnProcessingStateChanged?.Invoke(isProcessing);
     }

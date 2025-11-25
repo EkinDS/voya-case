@@ -16,9 +16,14 @@ public class BuildingConfig : ScriptableObject
         return levels[level];
     }
 
+    public float GetProductionDurationPerOutput(int level)
+    {
+        return levels[level].totalProductionDuration / levels[level].outputCount;
+    }
+    
     public float GetProductionDuration(int level)
     {
-        return levels[level].productionDuration;
+        return levels[level].totalProductionDuration;
     }
 
     public int GetOutputCount(int level)
@@ -38,7 +43,7 @@ public class BuildingConfig : ScriptableObject
 
     public int GetCycleCount(int level)
     {
-        return levels[level].cycleCount;
+        return levels[level].outputCount ;
     }
 }
 
@@ -48,8 +53,7 @@ public class BuildingLevelData
 {
     public int requiredInputCount;
     public int outputCount;
-    public int cycleCount;
-    public float productionDuration;
+    public float totalProductionDuration;
     public UpgradeRequirement upgradeRequirement;
 }
 
