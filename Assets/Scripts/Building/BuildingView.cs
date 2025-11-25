@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -8,7 +9,6 @@ public class BuildingView : MonoBehaviour, IBuildingView
 {
     [SerializeField] protected TextMeshProUGUI buildingNameText;
     [SerializeField] protected TextMeshProUGUI levelText;
-    [SerializeField] protected TextMeshProUGUI productionText;
     [SerializeField] protected TextMeshProUGUI upgradeText;
     [SerializeField] protected TextMeshProUGUI requiredInputCountText;
     [SerializeField] protected TextMeshProUGUI inputValueText;
@@ -20,8 +20,8 @@ public class BuildingView : MonoBehaviour, IBuildingView
     [SerializeField] protected Image upgradeArrowImage;
     [SerializeField] protected Button upgradeButton;
     [SerializeField] protected Button startProductionButton;
+    [SerializeField] protected CanvasGroup popUpCanvasGroup;
     [SerializeField] protected List<Animator> animators;
-    [SerializeField] protected Transform popUpTransform;
 
     public event Action OnUpgradeButtonClicked;
     public event Action OnStartProductionButtonClicked;
@@ -60,20 +60,22 @@ public class BuildingView : MonoBehaviour, IBuildingView
     {
         upgradeArrowImage.gameObject.SetActive(thereAreEnoughResources && !isMaxed && !isProcessing);
         upgradeButton.interactable = thereAreEnoughResources && !isMaxed && !isProcessing;
+        upgradeButton.gameObject.SetActive(!isMaxed);
     }
 
     public virtual void ArrangeStartProductionButton(bool thereAreEnoughResources, bool isProcessing)
     {
         startProductionButton.interactable = thereAreEnoughResources;
         startProductionButton.gameObject.SetActive(!isProcessing);
+        requiredInputCountText.color = thereAreEnoughResources ? Color.white : Color.red;
+
     }
 
-    public virtual void ArrangeInformation(int level, int outputCount, float duration, int upgradeRequirementCount, int requiredInputCount, bool hasEnoughResourcesToUpgrade)
+    public virtual void ArrangeInformation(int level, int outputCount, float duration, int upgradeRequirementCount,
+        int requiredInputCount)
     {
         levelText.text = (level + 1).ToString();
-        productionText.text = $"{outputCount} / {duration:0.0}s";
         requiredInputCountText.text = requiredInputCount.ToString();
-        requiredInputCountText.color = hasEnoughResourcesToUpgrade ? Color.white : Color.red;
         inputValueText.text = requiredInputCount.ToString();
         outputValueText.text = outputCount.ToString();
         durationValueText.text = duration + "s";
@@ -91,13 +93,51 @@ public class BuildingView : MonoBehaviour, IBuildingView
         }
     }
 
-    public void ShowPopUp()
+    private void ShowPopUp()
     {
-        popUpTransform.gameObject.SetActive(true);
+        StopAllCoroutines();
+        StartCoroutine(AnimatePopUpReveal());
     }
 
-    public void HidePopUp()
+    private void HidePopUp()
     {
-        popUpTransform.gameObject.SetActive(false);
+        StopAllCoroutines();
+
+        popUpCanvasGroup.gameObject.SetActive(false);
+    }
+
+    private IEnumerator AnimatePopUpReveal()
+    {
+        popUpCanvasGroup.gameObject.SetActive(true);
+
+        float timer = 0f;
+        float duration = 0.2f;
+
+        Vector3 scaleStart = new Vector3(0.8f, 0.8f, 0.8f);
+        Vector3 scalePeak = new Vector3(1.1f, 1.1f, 1.1f);
+        Vector3 scaleEnd = Vector3.one;
+
+        popUpCanvasGroup.transform.localScale = scaleStart;
+        popUpCanvasGroup.alpha = 0f;
+
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+
+            float t = Mathf.Clamp01(timer / duration);
+
+            Vector3 targetScale = t < 0.5f
+                ? Vector3.Lerp(scaleStart, scalePeak, t / 0.5f)
+                : Vector3.Lerp(scalePeak, scaleEnd, (t - 0.5f) / 0.5f);
+
+            popUpCanvasGroup.transform.localScale = targetScale;
+
+            popUpCanvasGroup.alpha = t;
+
+            yield return null;
+        }
+
+        popUpCanvasGroup.transform.localScale = scaleEnd;
+        popUpCanvasGroup.alpha = 1f;
     }
 }

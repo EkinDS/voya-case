@@ -7,16 +7,11 @@
     <list default="true" id="59110a76-73e0-450b-a0af-e1382406d295" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.voya-case/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.voya-case/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Building.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Building.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Building/BuildingConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Building/BuildingConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Building/BuildingModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Building/BuildingModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Building/BuildingPresenter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Building/BuildingPresenter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Building/BuildingView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Building/BuildingView.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Building/IBuildingView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Building/IBuildingView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/ConveyorBelts.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/ConveyorBelts.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Storage.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Sprites/Storage.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Inventory/InventoryView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Inventory/InventoryView.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +117,7 @@
       <option name="presentableId" value="Default" />
       <updated>1763990341722</updated>
       <workItem from="1763990343250" duration="19547000" />
-      <workItem from="1764061344111" duration="22622000" />
+      <workItem from="1764061344111" duration="24585000" />
     </task>
     <servers />
   </component>

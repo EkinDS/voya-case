@@ -12,13 +12,13 @@ public class InventoryView : MonoBehaviour, IInventoryView
         switch (type)
         {
             case ResourceType.Earth:
-                earthText.text = $"Earth: {count}";
+                earthText.text = count.ToString();
                 break;
             case ResourceType.Mud:
-                mudText.text = $"Mud: {count}";
+                mudText.text = count.ToString();
                 break;
             case ResourceType.Clay:
-                clayText.text = $"Clay: {count}";
+                clayText.text = count.ToString();
                 break;
         }
     }

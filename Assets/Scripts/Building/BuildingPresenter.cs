@@ -119,7 +119,7 @@ public class BuildingPresenter : IDisposable
         bool hasEnoughResourcesToUpgrade = inventoryModel.GetResourceCount(buildingModel.GetUpgradeRequirement().resourceType) >= buildingModel.GetUpgradeRequirement().count;
         var upgradeRequirement = buildingModel.GetUpgradeRequirement();
 
-        buildingView.ArrangeInformation(buildingModel.GetLevel(), buildingModel.GetOutputCount(), buildingModel.GetProductionDuration(), upgradeRequirement.count, buildingModel.GetRequiredInputCount(),hasEnoughResourcesToUpgrade);
+        buildingView.ArrangeInformation(buildingModel.GetLevel(), buildingModel.GetOutputCount(), buildingModel.GetProductionDuration(), upgradeRequirement.count, buildingModel.GetRequiredInputCount());
         buildingView.ArrangeUpgradeButton(hasEnoughResourcesToUpgrade, buildingModel.GetLevel() >= buildingModel.GetLevelCount() - 1, buildingModel.GetProcessingState());
         buildingView.ArrangeStartProductionButton(hasEnoughResourcesToStartProduction, buildingModel.GetProcessingState());
         buildingView.ArrangeAnimations(buildingModel.GetProcessingState());
