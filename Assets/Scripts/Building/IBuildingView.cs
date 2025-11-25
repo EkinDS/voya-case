@@ -5,10 +5,10 @@ public interface IBuildingView
     event Action OnUpgradeButtonClicked;
     event Action OnStartProductionButtonClicked;
 
-    public void SetTitle(string title);
+    public void SetTitle(string buildingName);
     public void SetProgress(float normalizedProgress);
     public void ArrangeUpgradeButton(bool thereAreEnoughResources, bool isMaxed, bool isProcessing);
     public void ArrangeStartProductionButton(bool thereAreEnoughResources, bool isProcessing);
-    public void ArrangeInformation(int level, int outputCount, float durationSeconds, ResourceType resourceType, int count, int requiredInputCount);
+    public void ArrangeInformation(int level, int outputCount, float durationSeconds, int upgradeRequirementCount, int requiredInputCount, bool hasEnoughResourcesToUpgrade);
     public void ArrangeAnimations(bool isProcessing);
 }

@@ -115,20 +115,13 @@ public class BuildingPresenter : IDisposable
 
     private void RefreshView()
     {
+        bool hasEnoughResourcesToStartProduction = inventoryModel.GetResourceCount(buildingModel.GetRequiredInputResourceType()) >= buildingModel.GetRequiredInputCount();
+        bool hasEnoughResourcesToUpgrade = inventoryModel.GetResourceCount(buildingModel.GetUpgradeRequirement().resourceType) >= buildingModel.GetUpgradeRequirement().count;
         var upgradeRequirement = buildingModel.GetUpgradeRequirement();
 
-        buildingView.ArrangeInformation(buildingModel.GetLevel(), buildingModel.GetOutputCount(),
-            buildingModel.GetProductionDuration(), upgradeRequirement.resourceType, upgradeRequirement.count,
-            buildingModel.GetRequiredInputCount());
-
-        buildingView.ArrangeUpgradeButton(
-            inventoryModel.GetResourceCount(buildingModel.GetUpgradeRequirement().resourceType) >=
-            buildingModel.GetUpgradeRequirement().count, buildingModel.GetLevel() >= buildingModel.GetLevelCount() - 1, buildingModel.GetProcessingState());
-        
-        buildingView.ArrangeStartProductionButton(
-            inventoryModel.GetResourceCount(buildingModel.GetRequiredInputResourceType()) >=
-            buildingModel.GetRequiredInputCount(), buildingModel.GetProcessingState());
-
+        buildingView.ArrangeInformation(buildingModel.GetLevel(), buildingModel.GetOutputCount(), buildingModel.GetProductionDuration(), upgradeRequirement.count, buildingModel.GetRequiredInputCount(),hasEnoughResourcesToUpgrade);
+        buildingView.ArrangeUpgradeButton(hasEnoughResourcesToUpgrade, buildingModel.GetLevel() >= buildingModel.GetLevelCount() - 1, buildingModel.GetProcessingState());
+        buildingView.ArrangeStartProductionButton(hasEnoughResourcesToStartProduction, buildingModel.GetProcessingState());
         buildingView.ArrangeAnimations(buildingModel.GetProcessingState());
     }
 

@@ -100,7 +100,7 @@ public class BuildingModel
 
     public string GetBuildingName()
     {
-        return buildingConfig.buildingName;
+        return buildingConfig.GetBuildingName();
     }
 
     public ResourceType GetOutputResourceType()

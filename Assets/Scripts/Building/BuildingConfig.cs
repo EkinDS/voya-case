@@ -45,6 +45,11 @@ public class BuildingConfig : ScriptableObject
     {
         return levels[level].outputCount ;
     }
+
+    public string GetBuildingName()
+    {
+        return buildingName;
+    }
 }
 
 
