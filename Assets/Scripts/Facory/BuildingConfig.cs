@@ -35,6 +35,11 @@ public class BuildingConfig : ScriptableObject
     {
         return levels[level].upgradeRequirement;
     }
+
+    public int GetCycleCount(int level)
+    {
+        return levels[level].cycleCount;
+    }
 }
 
 
@@ -43,6 +48,7 @@ public class BuildingLevelData
 {
     public int requiredInputCount;
     public int outputCount;
+    public int cycleCount;
     public float productionDuration;
     public UpgradeRequirement upgradeRequirement;
 }

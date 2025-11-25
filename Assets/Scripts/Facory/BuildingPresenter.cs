@@ -74,6 +74,7 @@ public class BuildingPresenter : IDisposable
 
         if (requiredInputResourceType == ResourceType.None || requiredInputCount <= 0)
         {
+            buildingModel.AddNewCycle();
             buildingModel.SetProcessingState(true);
             return;
         }
@@ -84,6 +85,7 @@ public class BuildingPresenter : IDisposable
         }
 
         inventoryModel.SpendResource(requiredInputResourceType, requiredInputCount);
+        buildingModel.AddNewCycle();
         buildingModel.SetProcessingState(true);
     }
 

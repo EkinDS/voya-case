@@ -12,6 +12,7 @@ public class BuildingModel
     public float progress;
     private float productionTimer;
     private bool isProcessing;
+    private int remainingCycleCount;
 
 
     public BuildingModel(BuildingConfig newBuildingConfig)
@@ -39,6 +40,17 @@ public class BuildingModel
         return buildingConfig.GetUpgradeRequirement(level);
     }
 
+    public void AddNewCycle()
+    {
+        Debug.Log("Adding new cycle");
+        remainingCycleCount += buildingConfig.GetCycleCount(level);
+    }
+
+    public int GetCycleCount()
+    {
+        return remainingCycleCount;
+    }
+    
     public void Upgrade()
     {
         level++;
@@ -77,8 +89,22 @@ public class BuildingModel
             RaiseProduced(outputCount);
         }
 
-        SetProcessingState(false);
-        progress = 0f;
+        if (remainingCycleCount > 0)
+        {
+            remainingCycleCount--;
+            Debug.Log("removing a cycle " + remainingCycleCount + " left");
+
+            progress = 0f;
+        }
+        else
+        {
+            Debug.Log("removing a cycle " + remainingCycleCount + " left");
+
+            Debug.Log("all cycles done");
+            SetProcessingState(false);
+            progress = 0f;
+        }
+      
     }
 
     public void SetProcessingState(bool newState)
@@ -88,6 +114,11 @@ public class BuildingModel
             return;
         }
 
+        if (newState)
+        {
+            remainingCycleCount--;
+        }
+        
         isProcessing = newState;
         OnProcessingStateChanged?.Invoke(isProcessing);
     }
