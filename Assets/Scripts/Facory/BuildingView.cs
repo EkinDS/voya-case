@@ -54,7 +54,7 @@ public class BuildingView : MonoBehaviour, IBuildingView
     public virtual void ArrangeInformation(int level, int outputCount, float durationSeconds, ResourceType resourceType,
         int count, int requiredInputCount)
     {
-        levelText.text = level.ToString();
+        levelText.text = (level + 1).ToString();
         productionText.text = $"{outputCount} / {durationSeconds:0.0}s";
         //upgradeCostText.text = $"{count} {resourceType}";
         requiredInputCountText.text = requiredInputCount.ToString();

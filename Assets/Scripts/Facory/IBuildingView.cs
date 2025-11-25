@@ -11,5 +11,4 @@ public interface IBuildingView
     public void ArrangeStartProductionButton(bool thereAreEnoughResources, bool isProcessing);
     public void ArrangeInformation(int level, int outputCount, float durationSeconds, ResourceType resourceType, int count, int requiredInputCount);
     public void ArrangeAnimations(bool isProcessing);
-
 }

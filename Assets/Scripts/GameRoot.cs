@@ -18,9 +18,9 @@ public class GameRoot : MonoBehaviour
 
     private void Start()
     {
-        var earthMineView = Instantiate(earthMineViewPrefab, new Vector3(0F, -3F, 0F), Quaternion.identity, viewParent);
-        var mudFactoryView = Instantiate(mudFactoryViewPrefab, new Vector3(0F, 0F, 0F), Quaternion.identity, viewParent);
-        var clayFactoryView = Instantiate(clayFactoryViewPrefab, new Vector3(0F, 3F, 0F), Quaternion.identity, viewParent);
+        var earthMineView = Instantiate(earthMineViewPrefab, new Vector3(0F, -3.5F, 0F), Quaternion.identity, viewParent);
+        var mudFactoryView = Instantiate(mudFactoryViewPrefab, new Vector3(0F, -0.5F, 0F), Quaternion.identity, viewParent);
+        var clayFactoryView = Instantiate(clayFactoryViewPrefab, new Vector3(0F, 2.5F, 0F), Quaternion.identity, viewParent);
 
         var inventoryModel = new InventoryModel();
         var earthMineModel = new BuildingModel(earthMineConfig);
