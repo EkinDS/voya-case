@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public abstract class BuildingModel
 {
@@ -9,8 +10,8 @@ public abstract class BuildingModel
     public BuildingConfig buildingConfig;
     public int level;
     public float progress;
-    protected float productionTimer;
-    protected bool isProcessing;
+    private float productionTimer;
+    private bool isProcessing;
 
 
     protected BuildingModel(BuildingConfig newBuildingConfig)
@@ -47,15 +48,30 @@ public abstract class BuildingModel
 
     public void Tick(float deltaTime, InventoryModel inventory)
     {
-        OnTick(deltaTime, inventory);
+        float productionDuration = GetProductionDuration();
+
+        if (isProcessing)
+        {
+            productionTimer += deltaTime;
+            progress = Mathf.Clamp01(productionTimer / productionDuration);
+
+            if (productionTimer >= productionDuration)
+            {
+                productionTimer -= productionDuration;
+
+                int outputCount = GetOutputCount();
+                ResourceType outputResourceType = buildingConfig.outputResourceType;
+
+                inventory.GainResource(outputResourceType, outputCount);
+                RaiseProduced(outputCount);
+             
+                SetProcessingState(false);
+                progress = 0F;
+            }
+        }
     }
 
-    protected void RaiseProduced(int count)
-    {
-        OnProduced?.Invoke(count);
-    }
-
-    protected void SetProcessingState(bool newState)
+    public void SetProcessingState(bool newState)
     {
         if (isProcessing == newState)
         {
@@ -66,7 +82,13 @@ public abstract class BuildingModel
         OnProcessingStateChanged?.Invoke(isProcessing);
     }
 
-    protected virtual void OnTick(float deltaTime, InventoryModel inventory)
+    public bool GetProcessingState()
     {
+        return isProcessing;
+    }
+
+    private void RaiseProduced(int count)
+    {
+        OnProduced?.Invoke(count);
     }
 }

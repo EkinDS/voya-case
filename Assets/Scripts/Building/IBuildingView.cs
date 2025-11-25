@@ -2,7 +2,8 @@ using System;
 
 public interface IBuildingView
 {
-    event Action OnUpgradeClicked;
+    event Action OnUpgradeButtonClicked;
+    event Action OnStartProductionButtonClicked;
 
     public void SetTitle(string title);
     public void SetLevel(int level);

@@ -10,10 +10,13 @@ public class BuildingView : MonoBehaviour, IBuildingView
     [SerializeField] protected TextMeshProUGUI productionText;
     [SerializeField] protected TextMeshProUGUI upgradeCostText;
     [SerializeField] protected TextMeshProUGUI maxText;
+    [SerializeField] protected TextMeshProUGUI productionRequirementText;
     [SerializeField] protected Image progressBarFillerImage;
     [SerializeField] protected Button upgradeButton;
+    [SerializeField] protected Button startProductionButton;
 
-    public event Action OnUpgradeClicked;
+    public event Action OnUpgradeButtonClicked;
+    public event Action OnStartProductionButtonClicked;
 
     protected Color defaultUpgradeTextColor;
 
@@ -24,8 +27,14 @@ public class BuildingView : MonoBehaviour, IBuildingView
 
     public void HandleUpgradeButtonClicked()
     {
-        OnUpgradeClicked?.Invoke();
+        OnUpgradeButtonClicked?.Invoke();
     }
+    
+    public void HandleStartProductionButtonClicked()
+    {
+        OnStartProductionButtonClicked?.Invoke();
+    }
+
 
     public virtual void SetTitle(string title)
     {

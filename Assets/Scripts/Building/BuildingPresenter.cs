@@ -7,14 +7,15 @@ public abstract class BuildingPresenter : IDisposable
     private readonly InventoryModel inventoryModel;
     private readonly IBuildingView buildingView;
 
-    protected BuildingPresenter(BuildingModel newBuildingModel, InventoryModel newInventoryModel, IBuildingView newInventoryView)
+    protected BuildingPresenter(BuildingModel newBuildingModel, InventoryModel newInventoryModel,
+        IBuildingView newInventoryView)
     {
         buildingModel = newBuildingModel;
-        inventoryModel = newInventoryModel ;
-        buildingView = newInventoryView ;
+        inventoryModel = newInventoryModel;
+        buildingView = newInventoryView;
 
-        buildingView.OnUpgradeClicked += OnUpgradeClicked;
-
+        buildingView.OnUpgradeButtonClicked += OnUpgradeButtonClicked;
+        buildingView.OnStartProductionButtonClicked += OnStartProductionButtonClicked;
         buildingModel.OnLevelChanged += OnLevelChanged;
         buildingModel.OnProduced += OnProduced;
         buildingModel.OnProcessingStateChanged += OnProcessingStateChanged;
@@ -27,7 +28,7 @@ public abstract class BuildingPresenter : IDisposable
         buildingModel.Tick(deltaTime, inventoryModel);
         buildingView.SetProgress(buildingModel.progress);
     }
-    
+
     private void InitializeView()
     {
         buildingView.SetTitle(buildingModel.buildingConfig.buildingName);
@@ -35,8 +36,8 @@ public abstract class BuildingPresenter : IDisposable
         buildingView.SetProgress(buildingModel.progress);
         buildingView.SetProcessingState(false);
     }
-    
-    private void OnUpgradeClicked()
+
+    private void OnUpgradeButtonClicked()
     {
         var upgradeRequirement = buildingModel.GetUpgradeRequirement();
 
@@ -44,30 +45,51 @@ public abstract class BuildingPresenter : IDisposable
         {
             return;
         }
-        
 
         int currentResourceAmount = inventoryModel.GetResourceCount(upgradeRequirement.resourceType);
-        
+
         if (currentResourceAmount < upgradeRequirement.count)
         {
             buildingView.ShowNotEnoughResourcesFeedback();
             return;
         }
-        
+
         inventoryModel.SpendResource(upgradeRequirement.resourceType, upgradeRequirement.count);
 
         buildingModel.Upgrade(inventoryModel);
 
         RefreshStaticInfo();
     }
-    
+
+    private void OnStartProductionButtonClicked()
+    {
+        ResourceType requiredInputResourceType = buildingModel.buildingConfig.requiredInputResourceType;
+        int requiredInputCount = buildingModel.GetRequiredInputCount();
+
+        if (requiredInputResourceType == ResourceType.None || requiredInputCount <= 0)
+        {
+            buildingModel.SetProcessingState(true);
+            return;
+        }
+
+        if (inventoryModel.GetResourceCount(requiredInputResourceType) < requiredInputCount)
+        {
+            buildingView.ShowNotEnoughResourcesFeedback();
+            return;
+        }
+
+        inventoryModel.SpendResource(requiredInputResourceType, requiredInputCount);
+        buildingModel.SetProcessingState(true);
+    }
+
+
     private void OnLevelChanged(int newLevel)
     {
         RefreshStaticInfo();
     }
 
     private void OnProduced(int producedCount)
-    { 
+    {
         buildingView.PlayProducedFeedback();
     }
 
@@ -75,20 +97,21 @@ public abstract class BuildingPresenter : IDisposable
     {
         buildingView.SetProcessingState(isProcessing);
     }
-    
+
     private void RefreshStaticInfo()
     {
         buildingView.SetLevel(buildingModel.level);
-        buildingView.SetProductionInfo( buildingModel.GetOutputCount(), buildingModel.GetProductionDuration());
+        buildingView.SetProductionInfo(buildingModel.GetOutputCount(), buildingModel.GetProductionDuration());
 
         var upgradeRequirement = buildingModel.GetUpgradeRequirement();
-        
+
         buildingView.SetUpgradeCost(upgradeRequirement.resourceType, upgradeRequirement.count);
     }
-    
+
     public virtual void Dispose()
     {
-        buildingView.OnUpgradeClicked -= OnUpgradeClicked;
+        buildingView.OnStartProductionButtonClicked -= OnStartProductionButtonClicked;
+        buildingView.OnUpgradeButtonClicked -= OnUpgradeButtonClicked;
         buildingModel.OnLevelChanged -= OnLevelChanged;
         buildingModel.OnProduced -= OnProduced;
         buildingModel.OnProcessingStateChanged -= OnProcessingStateChanged;

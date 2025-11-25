@@ -80,6 +80,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: EarthMine
       objectReference: {fileID: 0}
+    - target: {fileID: 9062837279511568058, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062837279511568058, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062837279511568058, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7559875009532210824}
+    - target: {fileID: 9062837279511568058, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062837279511568058, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HandleStartProductionButtonClicked
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062837279511568058, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EarthMineView, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9062837279511568058, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -110,6 +138,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &4888928127724702021 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9062837279511568058, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
+  m_PrefabInstance: {fileID: 4475835068430292991}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!114 &5092243375773686852 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8698161828151528379, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
@@ -143,8 +182,10 @@ MonoBehaviour:
   productionText: {fileID: 8355809938762113828}
   upgradeCostText: {fileID: 5560588759200723259}
   maxText: {fileID: 8599557036769503640}
+  productionRequirementText: {fileID: 0}
   progressBarFillerImage: {fileID: 3560975117841097606}
   upgradeButton: {fileID: 6430075198812303058}
+  startProductionButton: {fileID: 4888928127724702021}
 --- !u!114 &5560588759200723259 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8301948600447297220, guid: cf398ddda4f09fd48a7970e90134d3b4, type: 3}
