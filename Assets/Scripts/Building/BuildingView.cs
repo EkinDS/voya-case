@@ -68,7 +68,6 @@ public class BuildingView : MonoBehaviour, IBuildingView
         startProductionButton.interactable = thereAreEnoughResources;
         startProductionButton.gameObject.SetActive(!isProcessing);
         requiredInputCountText.color = thereAreEnoughResources ? Color.white : Color.red;
-
     }
 
     public virtual void ArrangeInformation(int level, int outputCount, float duration, int upgradeRequirementCount,
@@ -79,7 +78,7 @@ public class BuildingView : MonoBehaviour, IBuildingView
         inputValueText.text = requiredInputCount.ToString();
         outputValueText.text = outputCount.ToString();
         durationValueText.text = duration + "s";
-        productionSpeedValueText.text = (outputCount / duration * 60F).ToString("00.00");
+        productionSpeedValueText.text = (outputCount / duration * 60F).ToString("00.00") + "/min";
         upgradeText.text = upgradeRequirementCount.ToString();
 
         productionRequirementBackgroundImage.gameObject.SetActive(requiredInputCount > 0);

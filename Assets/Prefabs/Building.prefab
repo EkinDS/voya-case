@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 3595369931197999134}
   - component: {fileID: 1185479159348478141}
   - component: {fileID: 3344298206613644747}
+  - component: {fileID: 8597047344112651335}
   m_Layer: 5
   m_Name: ArrowImage
   m_TagString: Untagged
@@ -283,6 +284,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &8597047344112651335
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164221168789888791}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 86c07468492c68b44babf8ef115ed6da, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1606930783178834660
 GameObject:
   m_ObjectHideFlags: 0
@@ -2613,8 +2636,8 @@ RectTransform:
   m_LocalScale: {x: 0.008, y: 0.008, z: 0.008}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3595369931197999134}
   - {fileID: 3897160048568590547}
+  - {fileID: 3595369931197999134}
   - {fileID: 5420314344496380662}
   - {fileID: 7214621275955196070}
   - {fileID: 1653050875009857452}
@@ -3150,7 +3173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19215688, g: 0.3019608, b: 0.47450984, a: 1}
+  m_Color: {r: 0.0627451, g: 0.6431373, b: 0.3647059, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3179,7 +3202,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!1 &8727363413379507324
+--- !u!1 &8585340456798258466
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3187,40 +3210,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2752013866080846668}
-  - component: {fileID: 5888588084365214346}
-  - component: {fileID: 3409157804001514618}
+  - component: {fileID: 5810075620680249216}
+  - component: {fileID: 3294532869952303536}
   m_Layer: 0
-  m_Name: Building
+  m_Name: ConveyerBelt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2752013866080846668
+--- !u!4 &5810075620680249216
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8727363413379507324}
+  m_GameObject: {fileID: 8585340456798258466}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.471, z: 0}
+  m_LocalScale: {x: 0.23, y: 2.81804, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8199930096256643999}
-  - {fileID: 6545651541472684215}
-  m_Father: {fileID: 0}
+  m_Children: []
+  m_Father: {fileID: 2752013866080846668}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &5888588084365214346
+--- !u!212 &3294532869952303536
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8727363413379507324}
+  m_GameObject: {fileID: 8585340456798258466}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -3261,17 +3281,52 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 0.54901963, g: 0.45882356, b: 0.62352943, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &8727363413379507324
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2752013866080846668}
+  - component: {fileID: 3409157804001514618}
+  m_Layer: 0
+  m_Name: Building
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2752013866080846668
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727363413379507324}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5810075620680249216}
+  - {fileID: 8199930096256643999}
+  - {fileID: 6545651541472684215}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3409157804001514618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3297,8 +3352,8 @@ MonoBehaviour:
   upgradeArrowImage: {fileID: 3344298206613644747}
   upgradeButton: {fileID: 4669530826480684451}
   startProductionButton: {fileID: 9062837279511568058}
-  animators: []
   popUpCanvasGroup: {fileID: 1966531110202928725}
+  animators: []
 --- !u!1 &8837502911084499956
 GameObject:
   m_ObjectHideFlags: 0
