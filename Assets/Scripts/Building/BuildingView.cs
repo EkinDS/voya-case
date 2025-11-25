@@ -21,7 +21,10 @@ public class BuildingView : MonoBehaviour, IBuildingView
     [SerializeField] protected Button upgradeButton;
     [SerializeField] protected Button startProductionButton;
     [SerializeField] protected CanvasGroup popUpCanvasGroup;
+    [SerializeField] private GameObject resourceToClone;
     [SerializeField] protected List<Animator> animators;
+
+    private Coroutine popUpCoroutine;
 
     public event Action OnUpgradeButtonClicked;
     public event Action OnStartProductionButtonClicked;
@@ -92,15 +95,27 @@ public class BuildingView : MonoBehaviour, IBuildingView
         }
     }
 
+    public void SpawnResource()
+    {
+        StartCoroutine(SpawnAndMoveResource());
+    }
+
     private void ShowPopUp()
     {
-        StopAllCoroutines();
+        if (popUpCoroutine != null)
+        {
+            StopCoroutine(popUpCoroutine);
+        }
+
         StartCoroutine(AnimatePopUpReveal());
     }
 
     private void HidePopUp()
     {
-        StopAllCoroutines();
+        if (popUpCoroutine != null)
+        {
+            StopCoroutine(popUpCoroutine);
+        }
 
         popUpCanvasGroup.gameObject.SetActive(false);
     }
@@ -138,5 +153,30 @@ public class BuildingView : MonoBehaviour, IBuildingView
 
         popUpCanvasGroup.transform.localScale = scaleEnd;
         popUpCanvasGroup.alpha = 1f;
+    }
+
+    private IEnumerator SpawnAndMoveResource()
+    {
+        float timer = 0f;
+        float duration = 0.8F;
+        Vector3 startPosition = transform.position;
+        Vector3 endPosition = transform.position + new Vector3(0F, 3F, 0F);
+
+        GameObject newResource = Instantiate(resourceToClone, startPosition, Quaternion.identity, transform.parent);
+
+        newResource.gameObject.SetActive(true);
+
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            float normalizedTime = Mathf.Clamp01(timer / duration);
+
+            newResource.transform.position = Vector3.Lerp(startPosition, endPosition, normalizedTime);
+
+            yield return null;
+        }
+
+        newResource.transform.position = endPosition;
+        Destroy(newResource);
     }
 }

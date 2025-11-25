@@ -18,31 +18,31 @@ MonoBehaviour:
   levels:
   - requiredInputCount: 5
     outputCount: 1
-    totalProductionDuration: 1
+    totalProductionDuration: 5
     upgradeRequirement:
       resourceType: 2
       count: 1
-  - requiredInputCount: 12
+  - requiredInputCount: 9
     outputCount: 2
-    totalProductionDuration: 1
+    totalProductionDuration: 6
     upgradeRequirement:
       resourceType: 2
       count: 3
-  - requiredInputCount: 21
+  - requiredInputCount: 13
     outputCount: 3
-    totalProductionDuration: 1
+    totalProductionDuration: 7
     upgradeRequirement:
       resourceType: 2
       count: 5
-  - requiredInputCount: 32
+  - requiredInputCount: 15
     outputCount: 4
-    totalProductionDuration: 1
+    totalProductionDuration: 8
     upgradeRequirement:
       resourceType: 2
-      count: 0
-  - requiredInputCount: 45
+      count: 7
+  - requiredInputCount: 16
     outputCount: 5
-    totalProductionDuration: 1
+    totalProductionDuration: 9
     upgradeRequirement:
       resourceType: 0
       count: 0
