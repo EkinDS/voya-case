@@ -57,7 +57,7 @@ public class BuildingPresenter : IDisposable
 
         inventoryModel.SpendResource(upgradeRequirement.resourceType, upgradeRequirement.count);
 
-        buildingModel.Upgrade(inventoryModel);
+        buildingModel.Upgrade();
 
         RefreshView();
     }

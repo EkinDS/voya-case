@@ -39,7 +39,7 @@ public class BuildingModel
         return buildingConfig.GetUpgradeRequirement(level);
     }
 
-    public void Upgrade(InventoryModel inventory)
+    public void Upgrade()
     {
         level++;
 
