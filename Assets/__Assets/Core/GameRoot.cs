@@ -10,8 +10,8 @@ public class GameRoot : MonoBehaviour
 
     private InventoryPresenter inventoryPresenter;
     private List<BuildingPresenter> buildingPresenters;
-    
-    
+
+
     private void Start()
     {
         var inventoryModel = new InventoryModel();
@@ -20,9 +20,9 @@ public class GameRoot : MonoBehaviour
 
         foreach (var entry in buildingEntries)
         {
-            var view = Instantiate(entry.buildingViewPrefab, entry.spawnPosition, Quaternion.identity, buildingContainerTransform);
-            var model = new BuildingModel(entry.buildingConfig);
-            buildingPresenters.Add(  new BuildingPresenter(model, inventoryModel, view));
+            BuildingView newBuildingView = Instantiate(entry.buildingViewPrefab, entry.spawnPosition, Quaternion.identity, buildingContainerTransform);
+            BuildingModel newBuildingModel = new BuildingModel(entry.buildingConfig);
+            buildingPresenters.Add(new BuildingPresenter(newBuildingModel, inventoryModel, newBuildingView));
         }
     }
 
@@ -39,7 +39,7 @@ public class GameRoot : MonoBehaviour
     private void OnDestroy()
     {
         inventoryPresenter?.Dispose();
-        
+
         foreach (var buildingPresenter in buildingPresenters)
         {
             buildingPresenter.Dispose();

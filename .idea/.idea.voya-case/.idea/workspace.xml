@@ -6,6 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="59110a76-73e0-450b-a0af-e1382406d295" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.voya-case/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.voya-case/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/__Assets/Building/Inventory.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/__Assets/Building/Inventory/Scripts.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/__Assets/Building/Inventory/Scripts/IInventoryView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/__Assets/Building/Inventory/Scripts/IInventoryView.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/__Assets/Building/Inventory/Scripts/InventoryModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/__Assets/Building/Inventory/Scripts/InventoryModel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/__Assets/Building/Inventory/Scripts/InventoryPresenter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/__Assets/Building/Inventory/Scripts/InventoryPresenter.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/__Assets/Building/Inventory/Scripts/InventoryView.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/__Assets/Building/Inventory/Scripts/InventoryView.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/__Assets/Core/GameRoot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/__Assets/Core/GameRoot.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +125,7 @@
       <workItem from="1763990343250" duration="19547000" />
       <workItem from="1764061344111" duration="30487000" />
       <workItem from="1764147383407" duration="6954000" />
-      <workItem from="1764182287789" duration="3049000" />
+      <workItem from="1764182287789" duration="5526000" />
     </task>
     <servers />
   </component>
