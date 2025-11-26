@@ -49,51 +49,43 @@ public class BuildingView : MonoBehaviour, IBuildingView
     {
         HidePopUp();
     }
+    
+    public void Render(BuildingViewState state)
+    {
+        buildingNameText.text = state.name;
 
-    public virtual void SetTitle(string buildingName)
+        levelText.text = (state.level + 1).ToString();
+        requiredInputCountText.text = state.requiredInputCount.ToString();
+        inputValueText.text = state.requiredInputCount.ToString();
+        outputValueText.text = state.outputCount.ToString();
+        durationValueText.text = state.durationSeconds + "s";
+        productionSpeedValueText.text = (state.outputCount / state.durationSeconds * 60f).ToString("00.00") + "/min";
+        upgradeText.text = state.upgradeRequirementCount.ToString();
+
+        productionRequirementBackgroundImage.gameObject.SetActive(state.requiredInputCount > 0);
+        
+        upgradeArrowImage.gameObject.SetActive(state.canUpgrade && !state.isMaxLevel);
+        upgradeButton.interactable = state.canUpgrade && !state.isMaxLevel;
+        upgradeButton.gameObject.SetActive(!state.isMaxLevel);
+
+        startProductionButton.interactable = state.canStartProduction;
+        startProductionButton.gameObject.SetActive(!state.isProcessing);
+        requiredInputCountText.color = state.canStartProduction ? Color.white : Color.red;
+
+        foreach (var animator in animators)
+        {
+            animator.enabled = state.isProcessing;
+        }
+    }
+    
+    public void SetTitle(string buildingName)
     {
         buildingNameText.text = buildingName;
     }
 
-    public virtual void SetProgress(float normalizedProgress)
+    public void RefreshProcess(float normalizedProgress)
     {
         progressBarFillerImage.fillAmount = Mathf.Clamp01(normalizedProgress);
-    }
-
-    public virtual void ArrangeUpgradeButton(bool thereAreEnoughResources, bool isMaxed)
-    {
-        upgradeArrowImage.gameObject.SetActive(thereAreEnoughResources && !isMaxed);
-        upgradeButton.interactable = thereAreEnoughResources && !isMaxed;
-        upgradeButton.gameObject.SetActive(!isMaxed);
-    }
-
-    public virtual void ArrangeStartProductionButton(bool thereAreEnoughResources, bool isProcessing)
-    {
-        startProductionButton.interactable = thereAreEnoughResources;
-        startProductionButton.gameObject.SetActive(!isProcessing);
-        requiredInputCountText.color = thereAreEnoughResources ? Color.white : Color.red;
-    }
-
-    public virtual void ArrangeInformation(int level, int outputCount, float duration, int upgradeRequirementCount,
-        int requiredInputCount)
-    {
-        levelText.text = (level + 1).ToString();
-        requiredInputCountText.text = requiredInputCount.ToString();
-        inputValueText.text = requiredInputCount.ToString();
-        outputValueText.text = outputCount.ToString();
-        durationValueText.text = duration + "s";
-        productionSpeedValueText.text = (outputCount / duration * 60F).ToString("00.00") + "/min";
-        upgradeText.text = upgradeRequirementCount.ToString();
-
-        productionRequirementBackgroundImage.gameObject.SetActive(requiredInputCount > 0);
-    }
-
-    public void ArrangeAnimations(bool isProcessing)
-    {
-        foreach (var animator in animators)
-        {
-            animator.enabled = isProcessing;
-        }
     }
 
     public void SpawnResource()

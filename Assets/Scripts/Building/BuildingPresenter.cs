@@ -28,14 +28,11 @@ public class BuildingPresenter : IDisposable
     public void Tick(float deltaTime)
     {
         buildingModel.Tick(deltaTime);
-        buildingView.SetProgress(buildingModel.GetTotalProgress());
+        buildingView.RefreshProcess(buildingModel.GetTotalProgress());
     }
 
     private void InitializeView()
     {
-        buildingView.SetTitle(buildingModel.GetBuildingName());
-        buildingView.SetProgress(buildingModel.GetTotalProgress());
-
         RefreshView();
     }
 
@@ -97,7 +94,7 @@ public class BuildingPresenter : IDisposable
 
     private void OnProduced(int producedCount)
     {
-        inventoryModel.GainResource( buildingModel.GetOutputResourceType(), producedCount);
+        inventoryModel.GainResource(buildingModel.GetOutputResourceType(), producedCount);
 
         buildingView.SpawnResource();
         buildingView.BounceScale();
@@ -115,16 +112,31 @@ public class BuildingPresenter : IDisposable
         RefreshView();
     }
 
+
     private void RefreshView()
     {
-        bool hasEnoughResourcesToStartProduction = inventoryModel.GetResourceCount(buildingModel.GetRequiredInputResourceType()) >= buildingModel.GetRequiredInputCount();
-        bool hasEnoughResourcesToUpgrade = inventoryModel.GetResourceCount(buildingModel.GetUpgradeRequirement().resourceType) >= buildingModel.GetUpgradeRequirement().count;
         var upgradeRequirement = buildingModel.GetUpgradeRequirement();
+        var requiredInputCount = buildingModel.GetRequiredInputCount();
+        var level = buildingModel.GetLevel();
+        var isMaxLevel = level >= buildingModel.GetLevelCount() - 1;
+        var hasEnoughToUpgrade = upgradeRequirement.resourceType != ResourceType.None && inventoryModel.GetResourceCount(upgradeRequirement.resourceType) >= upgradeRequirement.count;
+        var hasEnoughToStart = inventoryModel.GetResourceCount(buildingModel.GetRequiredInputResourceType()) >= requiredInputCount;
 
-        buildingView.ArrangeInformation(buildingModel.GetLevel(), buildingModel.GetOutputCount(), buildingModel.GetProductionDuration(), upgradeRequirement.count, buildingModel.GetRequiredInputCount());
-        buildingView.ArrangeUpgradeButton(hasEnoughResourcesToUpgrade, buildingModel.GetLevel() >= buildingModel.GetLevelCount() - 1);
-        buildingView.ArrangeStartProductionButton(hasEnoughResourcesToStartProduction, buildingModel.GetProcessingState());
-        buildingView.ArrangeAnimations(buildingModel.GetProcessingState());
+        var state = new BuildingViewState
+        {
+            name = buildingModel.GetBuildingName(),
+            level = level,
+            outputCount = buildingModel.GetOutputCount(),
+            durationSeconds = buildingModel.GetProductionDuration(),
+            upgradeRequirementCount = upgradeRequirement.count,
+            requiredInputCount = requiredInputCount,
+            canUpgrade = hasEnoughToUpgrade && !isMaxLevel,
+            isMaxLevel = isMaxLevel,
+            canStartProduction = hasEnoughToStart && !buildingModel.GetProcessingState(),
+            isProcessing = buildingModel.GetProcessingState(),
+        };
+
+        buildingView.Render(state);
     }
 
     public virtual void Dispose()

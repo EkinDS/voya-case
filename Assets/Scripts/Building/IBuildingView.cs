@@ -2,15 +2,12 @@ using System;
 
 public interface IBuildingView
 {
-    event Action OnUpgradeButtonClicked;
-    event Action OnStartProductionButtonClicked;
+    public event Action OnUpgradeButtonClicked;
+    public event Action OnStartProductionButtonClicked;
 
-    public void SetTitle(string buildingName);
-    public void SetProgress(float normalizedProgress);
-    public void ArrangeUpgradeButton(bool thereAreEnoughResources, bool isMaxed);
-    public void ArrangeStartProductionButton(bool thereAreEnoughResources, bool isProcessing);
-    public void ArrangeInformation(int level, int outputCount, float durationSeconds, int upgradeRequirementCount, int requiredInputCount);
-    public void ArrangeAnimations(bool isProcessing);
+    public void Render(BuildingViewState state);
     public void SpawnResource();
     public void BounceScale();
+    public void SetTitle(string buildingName);
+    public void RefreshProcess(float progress);
 }

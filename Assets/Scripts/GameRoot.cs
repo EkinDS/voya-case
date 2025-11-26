@@ -11,10 +11,9 @@ public class GameRoot : MonoBehaviour
     private InventoryPresenter inventoryPresenter;
     private List<BuildingPresenter> buildingPresenters;
     
+    
     private void Start()
     {
-        Application.targetFrameRate = 60;
-        
         var inventoryModel = new InventoryModel();
         inventoryPresenter = new InventoryPresenter(inventoryModel, inventoryView);
         buildingPresenters = new List<BuildingPresenter>();
