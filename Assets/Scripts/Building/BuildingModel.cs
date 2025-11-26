@@ -15,6 +15,7 @@ public class BuildingModel
     private int remainingCycleCount;
     private int totalCycleCount;
     private float totalProgress;
+    private float currentProductionDurationPerOutput;
 
     public BuildingModel(BuildingConfig newBuildingConfig)
     {
@@ -45,6 +46,7 @@ public class BuildingModel
     {
         remainingCycleCount += buildingConfig.GetCycleCount(level);
         totalCycleCount += buildingConfig.GetCycleCount(level);
+        currentProductionDurationPerOutput = buildingConfig.GetProductionDurationPerOutput(level);
     }
 
     public void Upgrade()
@@ -61,19 +63,17 @@ public class BuildingModel
             totalProgress = 0f;
             return;
         }
-
-        float productionDurationPerOutput = buildingConfig.GetProductionDurationPerOutput(level);
-
+        
         productionTimer += deltaTime;
-        progress = Mathf.Clamp01(productionTimer / productionDurationPerOutput);
+        progress = Mathf.Clamp01(productionTimer / currentProductionDurationPerOutput);
         totalProgress = Mathf.Clamp01((totalCycleCount - remainingCycleCount + progress) / totalCycleCount);
 
-        if (productionTimer < productionDurationPerOutput)
+        if (productionTimer < currentProductionDurationPerOutput)
         {
             return;
         }
 
-        productionTimer -= productionDurationPerOutput;
+        productionTimer -= currentProductionDurationPerOutput;
         progress = 0f;
 
         if (remainingCycleCount > 0)

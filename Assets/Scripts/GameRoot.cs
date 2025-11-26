@@ -1,51 +1,57 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameRoot : MonoBehaviour
 {
     [SerializeField] private InventoryView inventoryView;
-    [SerializeField] private BuildingConfig earthMineConfig;
-    [SerializeField] private BuildingConfig mudFactoryConfig;
-    [SerializeField] private BuildingConfig clayFactoryConfig;
-    [SerializeField] private BuildingView earthMineViewPrefab;
-    [SerializeField] private BuildingView mudFactoryViewPrefab;
-    [SerializeField] private BuildingView clayFactoryViewPrefab;
-    [SerializeField] private Transform viewParent;
+    [SerializeField] private Transform buildingContainerTransform;
+    [SerializeField] private List<BuildingEntry> buildingEntries;
 
     private InventoryPresenter inventoryPresenter;
-    private BuildingPresenter earthMinePresenter;
-    private BuildingPresenter mudFactoryPresenter;
-    private BuildingPresenter clayFactoryPresenter;
-
+    private List<BuildingPresenter> buildingPresenters;
+    
     private void Start()
     {
-        var earthMineView = Instantiate(earthMineViewPrefab, new Vector3(0F, -3.5F, 0F), Quaternion.identity, viewParent);
-        var mudFactoryView = Instantiate(mudFactoryViewPrefab, new Vector3(0F, -0.5F, 0F), Quaternion.identity, viewParent);
-        var clayFactoryView = Instantiate(clayFactoryViewPrefab, new Vector3(0F, 2.5F, 0F), Quaternion.identity, viewParent);
-
+        Application.targetFrameRate = 60;
+        
         var inventoryModel = new InventoryModel();
-        var earthMineModel = new BuildingModel(earthMineConfig);
-        var mudFactoryModel = new BuildingModel(mudFactoryConfig);
-        var clayFactoryModel = new BuildingModel(clayFactoryConfig);
-
         inventoryPresenter = new InventoryPresenter(inventoryModel, inventoryView);
-        earthMinePresenter = new BuildingPresenter(earthMineModel, inventoryModel, earthMineView);
-        mudFactoryPresenter = new BuildingPresenter(mudFactoryModel, inventoryModel, mudFactoryView);
-        clayFactoryPresenter = new BuildingPresenter(clayFactoryModel, inventoryModel, clayFactoryView);
+        buildingPresenters = new List<BuildingPresenter>();
+
+        foreach (var entry in buildingEntries)
+        {
+            var view = Instantiate(entry.buildingViewPrefab, entry.spawnPosition, Quaternion.identity, buildingContainerTransform);
+            var model = new BuildingModel(entry.buildingConfig);
+            buildingPresenters.Add(  new BuildingPresenter(model, inventoryModel, view));
+        }
     }
 
     private void Update()
     {
         float deltaTime = Time.deltaTime;
-        earthMinePresenter?.Tick(deltaTime);
-        mudFactoryPresenter?.Tick(deltaTime);
-        clayFactoryPresenter?.Tick(deltaTime);
+
+        foreach (var buildingPresenter in buildingPresenters)
+        {
+            buildingPresenter.Tick(deltaTime);
+        }
     }
 
     private void OnDestroy()
     {
         inventoryPresenter?.Dispose();
-        earthMinePresenter?.Dispose();
-        mudFactoryPresenter?.Dispose();
-        clayFactoryPresenter?.Dispose();
+        
+        foreach (var buildingPresenter in buildingPresenters)
+        {
+            buildingPresenter.Dispose();
+        }
     }
+}
+
+[Serializable]
+public class BuildingEntry
+{
+    public BuildingConfig buildingConfig;
+    public BuildingView buildingViewPrefab;
+    public Vector3 spawnPosition;
 }

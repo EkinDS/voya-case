@@ -60,10 +60,10 @@ public class BuildingView : MonoBehaviour, IBuildingView
         progressBarFillerImage.fillAmount = Mathf.Clamp01(normalizedProgress);
     }
 
-    public virtual void ArrangeUpgradeButton(bool thereAreEnoughResources, bool isMaxed, bool isProcessing)
+    public virtual void ArrangeUpgradeButton(bool thereAreEnoughResources, bool isMaxed)
     {
-        upgradeArrowImage.gameObject.SetActive(thereAreEnoughResources && !isMaxed && !isProcessing);
-        upgradeButton.interactable = thereAreEnoughResources && !isMaxed && !isProcessing;
+        upgradeArrowImage.gameObject.SetActive(thereAreEnoughResources && !isMaxed);
+        upgradeButton.interactable = thereAreEnoughResources && !isMaxed;
         upgradeButton.gameObject.SetActive(!isMaxed);
     }
 

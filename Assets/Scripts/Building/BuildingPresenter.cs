@@ -122,7 +122,7 @@ public class BuildingPresenter : IDisposable
         var upgradeRequirement = buildingModel.GetUpgradeRequirement();
 
         buildingView.ArrangeInformation(buildingModel.GetLevel(), buildingModel.GetOutputCount(), buildingModel.GetProductionDuration(), upgradeRequirement.count, buildingModel.GetRequiredInputCount());
-        buildingView.ArrangeUpgradeButton(hasEnoughResourcesToUpgrade, buildingModel.GetLevel() >= buildingModel.GetLevelCount() - 1, buildingModel.GetProcessingState());
+        buildingView.ArrangeUpgradeButton(hasEnoughResourcesToUpgrade, buildingModel.GetLevel() >= buildingModel.GetLevelCount() - 1);
         buildingView.ArrangeStartProductionButton(hasEnoughResourcesToStartProduction, buildingModel.GetProcessingState());
         buildingView.ArrangeAnimations(buildingModel.GetProcessingState());
     }
